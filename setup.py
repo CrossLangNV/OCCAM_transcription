@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 with open("README.md", 'r') as f:
@@ -11,7 +11,11 @@ with open('requirements.txt') as f:
 setup(
     name='OCCAM-transcription', # the name of the package
     version='0.1',
-    packages=['xml_orm'], # contains our actual code
+    # contains our actual code
+    packages=find_packages(
+        where = 'src',
+    ), # =['xml_orm'],  # No submodules are taken
+    package_dir={"": "src"},
     author='Laurens Meeus',
     author_email='laurens.meeus@crosslang.com',
     description="Python wrapper for the XML's regarding the transcription",
