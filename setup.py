@@ -16,6 +16,8 @@ setup(
         where = 'src',
     ), # =['xml_orm'],  # No submodules are taken
     package_dir={"": "src"},
+    # package_data={'': ['license.txt']},
+    include_package_data=True,  # To add non-.py files.
     author='Laurens Meeus',
     author_email='laurens.meeus@crosslang.com',
     description="Python wrapper for the XML's regarding the transcription",
