@@ -1,0 +1,79 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+           targetNamespace="urn:occam:multilingual_pagecontent:0.3"
+           xmlns="urn:occam:multilingual_pagecontent:0.3"
+>
+    <!--               xliff:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-strict.xsd"-->
+    <!--    <xs:import namespace="urn:oasis:names:tc:xliff:document:1.2" schemaLocation="http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-strict.xsd"/>-->
+
+    <!--    <xs:include schemaLocation="https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/fs.xsd">-->
+    <!--    </xs:include>-->
+
+    <!--
+    Extending all the elements with our custum types till we can include TranslationType
+    -->
+    <xs:redefine schemaLocation="https://www.primaresearch.org/schema/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd">
+
+        <xs:complexType name="PcGtsType">
+            <xs:complexContent>
+                <xs:extension base="PcGtsType">
+                    <xs:sequence>
+                        <xs:element name="Page" type="PageType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+
+        <xs:complexType name="PageType">
+            <xs:complexContent>
+                <xs:extension base="PageType">
+                    <xs:sequence>
+                        <xs:element name="TextRegion" type="TextRegionType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+
+        <xs:complexType name="TextRegionType">
+            <xs:complexContent>
+                <xs:extension base="TextRegionType">
+                    <xs:sequence>
+                        <xs:element name="TextLine" type="TextLineType"/>
+                        <xs:element name="TextEquiv" type="TextEquivType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+
+        <xs:complexType name="TextLineType">
+            <xs:complexContent>
+                <xs:extension base="TextLineType">
+                    <xs:sequence>
+                        <xs:element name="TextEquiv" type="TextEquivType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+
+        <!--        Instead of Unicode or Plain text, an xliff translation unit can used-->
+        <xs:complexType name="TextEquivType">
+            <xs:complexContent>
+                <xs:extension base="TextEquivType">
+                    <xs:sequence>
+                        <xs:element ref="xliff:trans-unit" minOccurs="0" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+
+    </xs:redefine>
+
+    <!--
+    This makes it work
+    This makes that <PcGts/> doesn't give an error ELSE "has to be declared"
+    type Makes it according to style from Include!
+    -->
+    <xs:element name="PcGts" type="PcGtsType">
+    </xs:element>
+
+</xs:schema>
